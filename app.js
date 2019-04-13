@@ -11,6 +11,29 @@ app.get('/login', function(req, res) {
 	res.send('<h1>login plz</h1>');
 });
 
+app.get('/dynamic', function(req, res) {
+	var time = Date();
+	var lis = '';
+	for (var i = 0; i < 5; i++) {
+		lis = lis + '<li>coding</li>';
+	}
+	var output = `<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset='utf=8'>
+			<title></title>
+		</head>
+		<body>
+			hi
+			${lis}
+			${time}
+		</body>
+	</html>
+	
+	`;
+	res.send(output);
+});
+
 app.listen(3000, function() {
 	console.log('Example app listening on port 3000!');
 });
