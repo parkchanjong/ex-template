@@ -10,6 +10,10 @@ app.get('/', function(req, res) {
 	res.render('index', { title: 'Hey', message: 'Hello there!', time: Date() });
 });
 
+app.get('/topic', function(req, res) {
+	res.send(req.query.id + ',' + req.query.name);
+});
+
 app.get('/', function(req, res) {
 	res.send('Hello World!');
 });
