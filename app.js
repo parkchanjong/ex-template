@@ -10,15 +10,19 @@ app.get('/', function(req, res) {
 	res.render('index', { title: 'Hey', message: 'Hello there!', time: Date() });
 });
 
-app.get('/topic', function(req, res) {
+app.get('/topic/:id', function(req, res) {
 	var topics = ['java is ...', 'node is ...', 'express is ...'];
 	var output = `
-	<a href="topic?id=0">java</a><br>
-	<a href="topic?id=1">node</a><br>
-	<a href="topic?id=2">express</a><br>
-	${topics[req.query.id]}
+	<a href="0">java</a><br>
+	<a href="1">node</a><br>
+	<a href="2">express</a><br>
+	${topics[req.params.id]}
 	`;
 	res.send(output);
+});
+
+app.get('/topic/:id/:mode', function(req, res) {
+	res.send(req.params.id + ',' + req.params.mode);
 });
 
 app.get('/login', function(req, res) {
