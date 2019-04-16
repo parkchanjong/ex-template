@@ -11,11 +11,14 @@ app.get('/', function(req, res) {
 });
 
 app.get('/topic', function(req, res) {
-	res.send(req.query.id + ',' + req.query.name);
-});
-
-app.get('/', function(req, res) {
-	res.send('Hello World!');
+	var topics = ['java is ...', 'node is ...', 'express is ...'];
+	var output = `
+	<a href="topic?id=0">java</a><br>
+	<a href="topic?id=1">node</a><br>
+	<a href="topic?id=2">express</a><br>
+	${topics[req.query.id]}
+	`;
+	res.send(output);
 });
 
 app.get('/login', function(req, res) {
