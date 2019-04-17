@@ -10,6 +10,16 @@ app.get('/', function(req, res) {
 	res.render('index', { title: 'Hey', message: 'Hello there!', time: Date() });
 });
 
+app.get('/form', function(req, res) {
+	res.render('form');
+});
+
+app.get('/form_receiver', function(req, res) {
+	var title = req.query.title;
+	var description = req.query.description;
+	res.send(title + ',' + description);
+});
+
 app.get('/topic/:id', function(req, res) {
 	var topics = ['java is ...', 'node is ...', 'express is ...'];
 	var output = `
