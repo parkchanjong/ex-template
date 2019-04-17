@@ -1,10 +1,12 @@
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
 app.locals.pretty = true;
 app.set('view engine', 'pug');
 app.set('views', './views');
 
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function(req, res) {
 	res.render('index', { title: 'Hey', message: 'Hello there!', time: Date() });
@@ -17,6 +19,12 @@ app.get('/form', function(req, res) {
 app.get('/form_receiver', function(req, res) {
 	var title = req.query.title;
 	var description = req.query.description;
+	res.send(title + ',' + description);
+});
+
+app.post('/form_receiver', function(req, res) {
+	var title = req.body.title;
+	var description = req.body.description;
 	res.send(title + ',' + description);
 });
 
