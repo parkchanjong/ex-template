@@ -28,6 +28,17 @@ app.post('/form_receiver', function(req, res) {
 	res.send(title + ',' + description);
 });
 
+app.get('/topic2', function(req, res) {
+	var topics = ['java is ...', 'node is ...', 'express is ...'];
+	var output = `
+	<a href="/topic2?id=0">java</a><br>
+	<a href="/topic2?id=1">node</a><br>
+	<a href="/topic2?id=2">express</a><br>
+	${topics[req.query.id]}
+	`;
+	res.send(output);
+});
+
 app.get('/topic/:id', function(req, res) {
 	var topics = ['java is ...', 'node is ...', 'express is ...'];
 	var output = `
