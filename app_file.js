@@ -10,13 +10,34 @@ app.set('view engine', 'pug');
 app.locals.pretty = true;
 app.set('views', './views_file');
 
-app.get('/topic', function(req, res) {
+app.get('/topic/new', function(req, res) {
 	fs.readdir('data', function(err, files) {
 		if (err) {
 			res.status(500).send('server err');
 			console.log(err);
 		}
-		res.render('view', { topics: files });
+		res.render('new', { topics: files });
+	});
+});
+
+app.get(['/topic', '/topic/:id'], function(req, res) {
+	fs.readdir('data', function(err, files) {
+		if (err) {
+			res.status(500).send('server err');
+			console.log(err);
+		}
+		var id = req.params.id;
+		if (id) {
+			fs.readFile('data/' + id, 'utf8', function(err, data) {
+				if (err) {
+					res.status(500).send('server err');
+					console.log(err);
+				}
+				res.render('view', { title: id, topics: files, description: data });
+			});
+		} else {
+			res.render('view', { topics: files, title: 'welcom', description: 'hi' });
+		}
 	});
 });
 
@@ -28,7 +49,7 @@ app.post('/topic', function(req, res) {
 			res.status(500).send('server err');
 			console.log(err);
 		}
-		res.send('success');
+		res.redirect('/topic/' + title);
 	});
 });
 
